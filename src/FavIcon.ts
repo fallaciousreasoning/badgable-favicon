@@ -1,6 +1,10 @@
 const getLinkHtml = (href: string) => `<link rel="shortcut icon" href="${href}"`;
 
 export class FavIcon extends HTMLElement {
+    static get observedAttributes() {
+        return [ "href" ]
+    };
+
     private link: HTMLLinkElement;
 
     constructor() {
@@ -17,6 +21,11 @@ export class FavIcon extends HTMLElement {
 
     set href(value) {
         this.setAttribute('href', value);
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name !== "href" || oldValue == newValue) return;
+
         this.update();
     }
 
