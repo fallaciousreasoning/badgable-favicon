@@ -123,3 +123,4 @@ class BadgeableFavIcon extends HTMLElement {
 }
 BadgeableFavIcon.favIconSize = 16;
 customElements.define('badgeable-favicon', BadgeableFavIcon);
+//# sourceMappingURL=BadgeableFavIcon.js.map
