@@ -9,17 +9,17 @@ class FavIcon extends HTMLElement {
         this.canvas.width = FavIcon.favIconSize;
         this.canvas.height = FavIcon.favIconSize;
         document.head.appendChild(this.link);
-        this.updateHref();
+        this.updateSrc();
     }
     static get observedAttributes() {
-        return ["href", "badge", "badgeColor", "textColor"];
+        return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor"];
     }
     ;
-    get href() {
-        return this.getAttribute('href');
+    get src() {
+        return this.getAttribute('src');
     }
-    set href(value) {
-        this.setAttribute('href', value);
+    set src(value) {
+        this.setAttribute('src', value);
     }
     get badge() {
         return this.getAttribute('badge');
@@ -41,8 +41,8 @@ class FavIcon extends HTMLElement {
     }
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
-            case "href":
-                this.updateHref();
+            case "src":
+                this.updateSrc();
                 break;
             case "badge":
             case "badgeColor":
@@ -51,8 +51,8 @@ class FavIcon extends HTMLElement {
                 break;
         }
     }
-    updateHref() {
-        this.image.src = this.href;
+    updateSrc() {
+        this.image.src = this.src;
     }
     updateIcon() {
         const context = this.canvas.getContext('2d');

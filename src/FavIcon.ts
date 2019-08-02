@@ -2,7 +2,7 @@ class FavIcon extends HTMLElement {
     private static favIconSize = 16;
 
     static get observedAttributes() {
-        return [ "href", "badge", "badgeColor", "textColor" ]
+        return [ "src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor" ]
     };
 
     private canvas: HTMLCanvasElement;
@@ -24,15 +24,15 @@ class FavIcon extends HTMLElement {
 
         document.head.appendChild(this.link);
 
-        this.updateHref();
+        this.updateSrc();
     }
 
-    get href() {
-        return this.getAttribute('href');
+    get src() {
+        return this.getAttribute('src');
     }
 
-    set href(value) {
-        this.setAttribute('href', value);
+    set src(value) {
+        this.setAttribute('src', value);
     }
 
     get badge() {
@@ -61,8 +61,8 @@ class FavIcon extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
-            case "href":
-                this.updateHref();
+            case "src":
+                this.updateSrc();
                 break;
             case "badge":
             case "badgeColor":
@@ -72,8 +72,8 @@ class FavIcon extends HTMLElement {
         }
     }
     
-    private updateHref() {
-        this.image.src = this.href;
+    private updateSrc() {
+        this.image.src = this.src;
     }
 
     private updateIcon() {
