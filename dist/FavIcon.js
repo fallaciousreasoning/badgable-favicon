@@ -1,9 +1,3 @@
-const drawBadgeCircle = (to, color, size) => {
-    to.beginPath();
-    to.arc(this.canvas.width - size, this.canvas.height - size, size, 0, 2 * Math.PI);
-    to.fillStyle = this.badgeColor;
-    to.fill();
-};
 const shouldDrawBadgeForContent = (content) => {
     // Empty string should show a badge, as it's just setting the attribute.
     if (content == "")
@@ -105,7 +99,7 @@ class FavIcon extends HTMLElement {
                 context.drawImage(this.badgeBackgroundImage, this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, badgeSize);
             }
             else {
-                drawBadgeCircle(context, this.badgeColor, badgeSize);
+                this.drawBadgeCircle(context, this.badgeColor, badgeSize);
             }
             if (shouldDrawTextForContent(this.badge)) {
                 context.textAlign = 'center';
@@ -115,6 +109,13 @@ class FavIcon extends HTMLElement {
             }
         }
         this.link.href = this.canvas.toDataURL('image/png');
+    }
+    drawBadgeCircle(to, color, size) {
+        const radius = size * 0.5;
+        to.beginPath();
+        to.arc(this.canvas.width - radius, this.canvas.height - radius, radius, 0, 2 * Math.PI);
+        to.fillStyle = this.badgeColor;
+        to.fill();
     }
 }
 FavIcon.favIconSize = 16;
