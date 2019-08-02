@@ -12,7 +12,7 @@ class FavIcon extends HTMLElement {
         this.updateHref();
     }
     static get observedAttributes() {
-        return ["href", "badge"];
+        return ["href", "badge", "badgeColor"];
     }
     ;
     get href() {
@@ -27,12 +27,21 @@ class FavIcon extends HTMLElement {
     set badge(value) {
         this.setAttribute('badge', value);
     }
+    get badgeColor() {
+        return this.getAttribute('badgeColor') || 'red';
+    }
+    set badgeColor(value) {
+        this.setAttribute('badgeColor', value);
+    }
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case "href":
                 this.updateHref();
+                break;
             case "badge":
+            case "badgeColor":
                 this.updateIcon();
+                break;
         }
     }
     updateHref() {
@@ -47,7 +56,7 @@ class FavIcon extends HTMLElement {
             const badgeSize = FavIcon.favIconSize / 3;
             context.beginPath();
             context.arc(this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, 0, 2 * Math.PI);
-            context.fillStyle = '#FF0000';
+            context.fillStyle = this.badgeColor;
             context.fill();
             context.textAlign = 'center';
             context.textBaseline = 'middle';
