@@ -117,6 +117,8 @@ class FavIcon extends HTMLElement {
     }
 
     private updateBadgeBackgroundSrc() {
+        // Don't update null src.
+        if (!this.badgeBackgroundSrc) return;
         this.badgeBackgroundImage.src = this.badgeBackgroundSrc;
     }
 
