@@ -1,14 +1,14 @@
 {
   "name": "fav-icon",
   "version": "1.0.0",
-  "description": "A web component for displaying a favicon",
+  "description": "A web component for displaying a badgable favicon",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "fav-icon"
+    "url": "https://github.com/fallaciousreasoning/badgable-favicon"
   },
   "keywords": [
     "favicon",
