@@ -9,14 +9,14 @@ const shouldDrawBadgeForContent = (content) => {
     if (content == "")
         return true;
     // Other falsy values should hide the badge.
-    if (!content || content == 'false')
+    if (content == false || content == 'false')
         return false;
     // Non falsy values should show a badge.
     return true;
 };
 const shouldDrawTextForContent = (content) => {
     // If the content coerces to a falsy value, don't show the content.
-    return content != false;
+    return content != false && content !== 'true';
 };
 class FavIcon extends HTMLElement {
     constructor() {
