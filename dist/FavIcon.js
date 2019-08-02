@@ -35,7 +35,7 @@ class FavIcon extends HTMLElement {
         this.updateBadgeBackgroundSrc();
     }
     static get observedAttributes() {
-        return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor"];
+        return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor", "badgeSize"];
     }
     ;
     get src() {
@@ -49,6 +49,12 @@ class FavIcon extends HTMLElement {
     }
     set badgeBackgroundSrc(value) {
         this.setAttribute('badgeBackgroundSrc', value);
+    }
+    get badgeSize() {
+        return parseInt(this.getAttribute('badgeSize')) || 10;
+    }
+    set badgeSize(value) {
+        this.setAttribute('badgeSize', value.toString());
     }
     get badge() {
         return this.getAttribute('badge');
@@ -93,7 +99,7 @@ class FavIcon extends HTMLElement {
         const context = this.canvas.getContext('2d');
         context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
         context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
-        const badgeSize = 10;
+        const badgeSize = this.badgeSize;
         if (shouldDrawBadgeForContent(this.badge)) {
             if (this.badgeBackgroundSrc) {
                 context.drawImage(this.badgeBackgroundImage, this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, badgeSize);

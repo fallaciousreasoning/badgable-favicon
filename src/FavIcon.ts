@@ -25,7 +25,7 @@ class FavIcon extends HTMLElement {
     private static favIconSize = 16;
 
     static get observedAttributes() {
-        return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor"]
+        return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor", "badgeSize"]
     };
 
     private canvas: HTMLCanvasElement;
@@ -69,6 +69,14 @@ class FavIcon extends HTMLElement {
 
     set badgeBackgroundSrc(value) {
         this.setAttribute('badgeBackgroundSrc', value);
+    }
+
+    get badgeSize() {
+        return parseInt(this.getAttribute('badgeSize')) || 10;
+    }
+
+    set badgeSize(value) {
+        this.setAttribute('badgeSize', value.toString());
     }
 
     get badge() {
@@ -124,7 +132,7 @@ class FavIcon extends HTMLElement {
         context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
         context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
 
-        const badgeSize = 10;
+        const badgeSize = this.badgeSize;
 
         if (shouldDrawBadgeForContent(this.badge)) {
             if (this.badgeBackgroundSrc) {
