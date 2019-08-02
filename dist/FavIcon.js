@@ -5,11 +5,14 @@ class FavIcon extends HTMLElement {
         this.link.setAttribute("rel", "shortcut icon");
         this.image = document.createElement('img');
         this.image.onload = () => this.updateIcon();
+        this.badgeBackgroundImage = document.createElement('img');
+        this.badgeBackgroundImage.onload = () => this.updateIcon();
         this.canvas = document.createElement('canvas');
         this.canvas.width = FavIcon.favIconSize;
         this.canvas.height = FavIcon.favIconSize;
         document.head.appendChild(this.link);
         this.updateSrc();
+        this.updateBadgeBackgroundSrc();
     }
     static get observedAttributes() {
         return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor"];
@@ -20,6 +23,12 @@ class FavIcon extends HTMLElement {
     }
     set src(value) {
         this.setAttribute('src', value);
+    }
+    get badgeBackgroundSrc() {
+        return this.getAttribute("badgeBackgroundSrc");
+    }
+    set badgeBackgroundSrc(value) {
+        this.setAttribute('badgeBackgroundSrc', value);
     }
     get badge() {
         return this.getAttribute('badge');
@@ -44,6 +53,9 @@ class FavIcon extends HTMLElement {
             case "src":
                 this.updateSrc();
                 break;
+            case "badgeBackgroundSrc":
+                this.updateBadgeBackgroundSrc();
+                break;
             case "badge":
             case "badgeColor":
             case "textColor":
@@ -53,6 +65,9 @@ class FavIcon extends HTMLElement {
     }
     updateSrc() {
         this.image.src = this.src;
+    }
+    updateBadgeBackgroundSrc() {
+        this.badgeBackgroundImage.src = this.badgeBackgroundSrc;
     }
     updateIcon() {
         const context = this.canvas.getContext('2d');

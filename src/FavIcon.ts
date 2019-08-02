@@ -8,6 +8,7 @@ class FavIcon extends HTMLElement {
     private canvas: HTMLCanvasElement;
     private link: HTMLLinkElement;
     private image: HTMLImageElement;
+    private badgeBackgroundImage: HTMLImageElement;
 
     constructor() {
         super();
@@ -18,6 +19,9 @@ class FavIcon extends HTMLElement {
         this.image = document.createElement('img');
         this.image.onload = () => this.updateIcon();
 
+        this.badgeBackgroundImage = document.createElement('img');
+        this.badgeBackgroundImage.onload = () => this.updateIcon();
+
         this.canvas = document.createElement('canvas');
         this.canvas.width = FavIcon.favIconSize;
         this.canvas.height = FavIcon.favIconSize;
@@ -25,6 +29,7 @@ class FavIcon extends HTMLElement {
         document.head.appendChild(this.link);
 
         this.updateSrc();
+        this.updateBadgeBackgroundSrc();
     }
 
     get src() {
@@ -33,6 +38,14 @@ class FavIcon extends HTMLElement {
 
     set src(value) {
         this.setAttribute('src', value);
+    }
+
+    get badgeBackgroundSrc() {
+        return this.getAttribute("badgeBackgroundSrc");
+    }
+
+    set badgeBackgroundSrc(value) {
+        this.setAttribute('badgeBackgroundSrc', value);
     }
 
     get badge() {
@@ -64,6 +77,9 @@ class FavIcon extends HTMLElement {
             case "src":
                 this.updateSrc();
                 break;
+            case "badgeBackgroundSrc":
+                this.updateBadgeBackgroundSrc();
+                break;
             case "badge":
             case "badgeColor":
             case "textColor":
@@ -74,6 +90,10 @@ class FavIcon extends HTMLElement {
     
     private updateSrc() {
         this.image.src = this.src;
+    }
+
+    private updateBadgeBackgroundSrc() {
+        this.badgeBackgroundImage.src = this.badgeBackgroundSrc;
     }
 
     private updateIcon() {
