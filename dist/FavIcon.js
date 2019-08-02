@@ -1,16 +1,20 @@
-const getLinkHtml = (href) => `<link rel="shortcut icon" href="${href}"`;
 class FavIcon extends HTMLElement {
-    static get observedAttributes() {
-        return ["href"];
-    }
-    ;
     constructor() {
         super();
         this.link = document.createElement('link');
         this.link.setAttribute("rel", "shortcut icon");
+        this.image = document.createElement('img');
+        this.image.onload = () => this.updateIcon();
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = FavIcon.favIconSize;
+        this.canvas.height = FavIcon.favIconSize;
         document.head.appendChild(this.link);
-        this.update();
+        this.updateHref();
     }
+    static get observedAttributes() {
+        return ["href", "badge"];
+    }
+    ;
     get href() {
         return this.getAttribute('href');
     }
@@ -20,10 +24,18 @@ class FavIcon extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name !== "href" || oldValue == newValue)
             return;
-        this.update();
+        this.updateHref();
+        this.updateIcon();
     }
-    update() {
-        this.link.setAttribute("href", this.href);
+    updateHref() {
+        this.image.src = this.href;
+    }
+    updateIcon() {
+        const context = this.canvas.getContext('2d');
+        context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
+        context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
+        this.link.href = this.canvas.toDataURL('image/png');
     }
 }
+FavIcon.favIconSize = 16;
 customElements.define('fav-icon', FavIcon);
