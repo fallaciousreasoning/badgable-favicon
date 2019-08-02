@@ -4,6 +4,20 @@ const drawBadgeCircle = (to, color, size) => {
     to.fillStyle = this.badgeColor;
     to.fill();
 };
+const shouldDrawBadgeForContent = (content) => {
+    // Empty string should show a badge, as it's just setting the attribute.
+    if (content == "")
+        return true;
+    // Other falsy values should hide the badge.
+    if (!content || content == 'false')
+        return false;
+    // Non falsy values should show a badge.
+    return true;
+};
+const shouldDrawTextForContent = (content) => {
+    // If the content coerces to a falsy value, don't show the content.
+    return content != false;
+};
 class FavIcon extends HTMLElement {
     constructor() {
         super();
@@ -79,19 +93,20 @@ class FavIcon extends HTMLElement {
         const context = this.canvas.getContext('2d');
         context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
         context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
-        const drawBadge = !!this.badge;
-        if (drawBadge) {
-            const badgeSize = 10;
+        const badgeSize = 10;
+        if (shouldDrawBadgeForContent(this.badge)) {
             if (this.badgeBackgroundSrc) {
                 context.drawImage(this.badgeBackgroundImage, this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, badgeSize);
             }
             else {
                 drawBadgeCircle(context, this.badgeColor, badgeSize);
             }
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.fillStyle = this.textColor;
-            // context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
+            if (shouldDrawTextForContent(this.badge)) {
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillStyle = this.textColor;
+                context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize / 2, this.canvas.height - badgeSize / 2);
+            }
         }
         this.link.href = this.canvas.toDataURL('image/png');
     }

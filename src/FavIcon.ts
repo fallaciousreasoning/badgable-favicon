@@ -1,15 +1,31 @@
 const drawBadgeCircle = (to: CanvasRenderingContext2D, color: string, size: number) => {
     to.beginPath();
-    to.arc(this.canvas.width - size, this.canvas.height - size, size, 0, 2*Math.PI);
+    to.arc(this.canvas.width - size, this.canvas.height - size, size, 0, 2 * Math.PI);
     to.fillStyle = this.badgeColor;
     to.fill();
+}
+
+const shouldDrawBadgeForContent = (content: string) => {
+    // Empty string should show a badge, as it's just setting the attribute.
+    if (content == "") return true;
+
+    // Other falsy values should hide the badge.
+    if (!content || content == 'false') return false;
+
+    // Non falsy values should show a badge.
+    return true;
+}
+
+const shouldDrawTextForContent = (content: string) => {
+    // If the content coerces to a falsy value, don't show the content.
+    return (content as any) != false;
 }
 
 class FavIcon extends HTMLElement {
     private static favIconSize = 16;
 
     static get observedAttributes() {
-        return [ "src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor" ]
+        return ["src", "badge", "badgeBackgroundSrc", "badgeColor", "textColor"]
     };
 
     private canvas: HTMLCanvasElement;
@@ -94,7 +110,7 @@ class FavIcon extends HTMLElement {
                 break;
         }
     }
-    
+
     private updateSrc() {
         this.image.src = this.src;
     }
@@ -108,10 +124,9 @@ class FavIcon extends HTMLElement {
         context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
         context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
 
-        const drawBadge = !!this.badge;
-        if (drawBadge) {
-            const badgeSize = 10;
+        const badgeSize = 10;
 
+        if (shouldDrawBadgeForContent(this.badge)) {
             if (this.badgeBackgroundSrc) {
                 context.drawImage(this.badgeBackgroundImage,
                     this.canvas.width - badgeSize,
@@ -122,10 +137,12 @@ class FavIcon extends HTMLElement {
                 drawBadgeCircle(context, this.badgeColor, badgeSize);
             }
 
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.fillStyle = this.textColor;
-            // context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
+            if (shouldDrawTextForContent(this.badge)) {
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillStyle = this.textColor;
+                context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize/2, this.canvas.height - badgeSize/2);
+            }
         }
 
         this.link.href = this.canvas.toDataURL('image/png');
