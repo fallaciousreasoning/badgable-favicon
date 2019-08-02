@@ -1,3 +1,10 @@
+const drawBadgeCircle = (to: CanvasRenderingContext2D, color: string, size: number) => {
+    to.beginPath();
+    to.arc(this.canvas.width - size, this.canvas.height - size, size, 0, 2*Math.PI);
+    to.fillStyle = this.badgeColor;
+    to.fill();
+}
+
 class FavIcon extends HTMLElement {
     private static favIconSize = 16;
 
@@ -103,17 +110,22 @@ class FavIcon extends HTMLElement {
 
         const drawBadge = !!this.badge;
         if (drawBadge) {
-            const badgeSize = FavIcon.favIconSize/3;
+            const badgeSize = 10;
 
-            context.beginPath();
-            context.arc(this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, 0, 2*Math.PI);
-            context.fillStyle = this.badgeColor;
-            context.fill();
+            if (this.badgeBackgroundSrc) {
+                context.drawImage(this.badgeBackgroundImage,
+                    this.canvas.width - badgeSize,
+                    this.canvas.height - badgeSize,
+                    badgeSize,
+                    badgeSize);
+            } else {
+                drawBadgeCircle(context, this.badgeColor, badgeSize);
+            }
 
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillStyle = this.textColor;
-            context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
+            // context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
         }
 
         this.link.href = this.canvas.toDataURL('image/png');

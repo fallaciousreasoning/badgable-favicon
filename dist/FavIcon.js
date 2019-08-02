@@ -1,3 +1,9 @@
+const drawBadgeCircle = (to, color, size) => {
+    to.beginPath();
+    to.arc(this.canvas.width - size, this.canvas.height - size, size, 0, 2 * Math.PI);
+    to.fillStyle = this.badgeColor;
+    to.fill();
+};
 class FavIcon extends HTMLElement {
     constructor() {
         super();
@@ -75,15 +81,17 @@ class FavIcon extends HTMLElement {
         context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
         const drawBadge = !!this.badge;
         if (drawBadge) {
-            const badgeSize = FavIcon.favIconSize / 3;
-            context.beginPath();
-            context.arc(this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, 0, 2 * Math.PI);
-            context.fillStyle = this.badgeColor;
-            context.fill();
+            const badgeSize = 10;
+            if (this.badgeBackgroundSrc) {
+                context.drawImage(this.badgeBackgroundImage, this.canvas.width - badgeSize, this.canvas.height - badgeSize, badgeSize, badgeSize);
+            }
+            else {
+                drawBadgeCircle(context, this.badgeColor, badgeSize);
+            }
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillStyle = this.textColor;
-            context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
+            // context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
         }
         this.link.href = this.canvas.toDataURL('image/png');
     }
