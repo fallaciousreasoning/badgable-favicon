@@ -14,7 +14,7 @@ const shouldDrawTextForContent = (content: string) => {
     return (content as any) != false && content !== 'true';
 }
 
-class FavIcon extends HTMLElement {
+class BadgeableFavIcon extends HTMLElement {
     private static favIconSize = 16;
 
     static get observedAttributes() {
@@ -39,8 +39,8 @@ class FavIcon extends HTMLElement {
         this.badgeBackgroundImage.onload = () => this.updateIcon();
 
         this.canvas = document.createElement('canvas');
-        this.canvas.width = FavIcon.favIconSize;
-        this.canvas.height = FavIcon.favIconSize;
+        this.canvas.width = BadgeableFavIcon.favIconSize;
+        this.canvas.height = BadgeableFavIcon.favIconSize;
 
         document.head.appendChild(this.link);
 
@@ -124,8 +124,8 @@ class FavIcon extends HTMLElement {
 
     private updateIcon() {
         const context = this.canvas.getContext('2d');
-        context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
-        context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
+        context.clearRect(0, 0, BadgeableFavIcon.favIconSize, BadgeableFavIcon.favIconSize);
+        context.drawImage(this.image, 0, 0, BadgeableFavIcon.favIconSize, BadgeableFavIcon.favIconSize);
 
         const badgeSize = this.badgeSize;
 
@@ -160,4 +160,4 @@ class FavIcon extends HTMLElement {
     }
 }
 
-customElements.define('fav-icon', FavIcon);
+customElements.define('badgeable-favicon', BadgeableFavIcon);

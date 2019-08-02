@@ -12,7 +12,7 @@ const shouldDrawTextForContent = (content) => {
     // If the content coerces to a falsy value, don't show the content.
     return content != false && content !== 'true';
 };
-class FavIcon extends HTMLElement {
+class BadgeableFavIcon extends HTMLElement {
     constructor() {
         super();
         this.link = document.createElement('link');
@@ -22,8 +22,8 @@ class FavIcon extends HTMLElement {
         this.badgeBackgroundImage = document.createElement('img');
         this.badgeBackgroundImage.onload = () => this.updateIcon();
         this.canvas = document.createElement('canvas');
-        this.canvas.width = FavIcon.favIconSize;
-        this.canvas.height = FavIcon.favIconSize;
+        this.canvas.width = BadgeableFavIcon.favIconSize;
+        this.canvas.height = BadgeableFavIcon.favIconSize;
         document.head.appendChild(this.link);
         this.updateSrc();
         this.updateBadgeBackgroundSrc();
@@ -94,8 +94,8 @@ class FavIcon extends HTMLElement {
     }
     updateIcon() {
         const context = this.canvas.getContext('2d');
-        context.clearRect(0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
-        context.drawImage(this.image, 0, 0, FavIcon.favIconSize, FavIcon.favIconSize);
+        context.clearRect(0, 0, BadgeableFavIcon.favIconSize, BadgeableFavIcon.favIconSize);
+        context.drawImage(this.image, 0, 0, BadgeableFavIcon.favIconSize, BadgeableFavIcon.favIconSize);
         const badgeSize = this.badgeSize;
         if (shouldDrawBadgeForContent(this.badge)) {
             if (this.badgeBackgroundSrc) {
@@ -121,5 +121,5 @@ class FavIcon extends HTMLElement {
         to.fill();
     }
 }
-FavIcon.favIconSize = 16;
-customElements.define('fav-icon', FavIcon);
+BadgeableFavIcon.favIconSize = 16;
+customElements.define('badgeable-favicon', BadgeableFavIcon);

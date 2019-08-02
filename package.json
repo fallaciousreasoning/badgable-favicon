@@ -1,5 +1,5 @@
 {
-  "name": "fav-icon",
+  "name": "favicon-badge",
   "version": "1.0.0",
   "description": "A web component for displaying a badgable favicon",
   "main": "index.ts",
