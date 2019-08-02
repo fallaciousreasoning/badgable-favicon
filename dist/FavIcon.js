@@ -52,7 +52,7 @@ class FavIcon extends HTMLElement {
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillStyle = '#000000';
-            context.fillText(this.badge, this.canvas.width - badgeSize, this.canvas.height - badgeSize);
+            context.fillText(this.badge.slice(0, 2), this.canvas.width - badgeSize, this.canvas.height - badgeSize);
         }
         this.link.href = this.canvas.toDataURL('image/png');
     }
