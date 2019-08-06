@@ -2,12 +2,12 @@
   "name": "favicon-badge",
   "version": "1.0.1",
   "description": "A web component for displaying a badgable favicon",
-  "main": "dist/BadgeableFavIcon.js",
-  "types": "dist/BadgeableFavIcon.d.ts",
+  "main": "dist/FavIconBadge.js",
+  "types": "dist/FavIconBadge.d.ts",
   "scripts": {
     "build": "tsc && npm run minify",
     "prepublish": "npm run build",
-    "minify": "terser dist/BadgeableFavIcon.js --output dist/BadgeableFavIcon.min.js --source-map 'content=dist/BadgeableFavIcon.js.map'",
+    "minify": "terser dist/FavIconBadge.js --output dist/FavIconBadge.min.js --source-map 'content=dist/FavIconBadge.js.map'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

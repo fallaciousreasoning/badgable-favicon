@@ -4,29 +4,29 @@ This project makes it possible to badge the favicon of the current page. You can
 
 ## Usage
 
-Include the "BadgeableFavicon.js" file in your project.
+Include the "FavIconBadge.js" file in your project.
 
 Run
 ```
-npm install badgable-favicon
+npm install favicon-badge
 ```
 
 and then, if using WebPack:
 ```js
-import "BadgableFavIcon";
+import "FavIconBadge";
 ```
 
 or if using VanillaJS
 
 ```html
-<script type="text/javascript" src="path/to/BadgableFavIcon.js"></script>
+<script type="text/javascript" src="path/to/FavIconBadge.js"></script>
 ```
 
-To use, simply add a `<badgable-favicon/>` tag to the `<head>` of your document.
+To use, simply add a `<favicon-badge/>` tag to the `<head>` of your document.
 
 ```html
 <!-- Badges the favicon for the current page with a '1' -->
-<badgable-favicon src="/favicon.png" badge="1" />
+<favicon-badge src="/favicon.png" badge="1" />
 ```
 
 ## API
