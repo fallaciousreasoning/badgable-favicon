@@ -5,4 +5,5 @@
 #favicon-badge-editor {
     width: 80%;
     margin: 10px 10% 10px 10%;
+    white-space: pre-wrap;
 }
