@@ -1,6 +1,6 @@
 # Badgable FavIcon
 
-This project makes it possible to badge the favicon of the current page. You can play with a demo [here](https://melodious-settee.glitch.me).
+This project makes it possible to badge the favicon of the current page. You can play with a demo [here](https://fallaciousreasoning.github.io/badgable-favicon/).
 
 ## Usage
 
