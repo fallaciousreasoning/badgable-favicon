@@ -1,6 +1,6 @@
 {
   "name": "favicon-badge",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A web component for displaying a badgable favicon",
   "main": "dist/FavIconBadge.js",
   "types": "dist/FavIconBadge.d.ts",
